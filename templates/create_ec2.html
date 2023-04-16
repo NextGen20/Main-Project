@@ -1,0 +1,10 @@
+{% comment %} <h1>Create EC2 Instance</h1>
+<form action="{{ url_for('create_ec2_instance') }}" method="POST">
+  <label for="ami_id">AMI ID:</label>
+  <input type="text" id="ami_id" name="ami_id" required><br><br>
+  <label for="instance_type">Instance Type:</label>
+  <input type="text" id="instance_type" name="instance_type" required><br><br>
+  <input type="submit" value="Create EC2 Instance">
+</form>
+</body>
+</html> {% endcomment %}

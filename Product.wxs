@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*" Name="AWS Command Line Interface" Language="1033" Version="1.27.111" Manufacturer="Amazon Web Services Developer Relations" UpgradeCode="13ddc71e-f715-11e3-ab90-406c8f1f39d6">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x64" />
+
+    <MajorUpgrade Schedule="afterInstallInitialize" DowngradeErrorMessage="A newer version of [ProductName] is already installed. Exiting installation." />
+    <!--<MediaTemplate />-->
+
+    <Condition Message="A newer version of [ProductName] is already installed. Exiting installation.">
+      <![CDATA[Installed OR NOT NEWER_VERSION_FOUND]]>
+    </Condition>
+
+    <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+
+    <Feature Id="AWSCLI" Title="AWS Command Line Interface" Level="1" Display="expand" AllowAdvertise="no" ConfigurableDirectory="AWSCLI64PY3"
+             Description="The AWS Command Line Interface is a unified tool to manage your AWS services.">
+      <ComponentGroupRef Id="AWSCLI64PY3_Files" />
+      <Component Id="SetCLIPathEnvironment" Directory="AWSCLI64PY3" Guid="DB393326-0F75-11E3-8BAC-406C8F1F39D6">
+        <CreateFolder/>
+        <Environment Id="SET_ENV" Action="set" Name="PATH" Part="last" Permanent="no" System="yes" Value="[AWSCLI64PY3_BIN]" />
+        <Environment Id="SET_COMPAT_ENV" Action="set" Name="PATH" Part="last" Permanent="no" System="yes" Value="[AWSCLI64PY3_COMPATBIN]" />
+      </Component>
+    </Feature>
+  <Icon Id="awsicon" SourceFile="resources\amazonaws.ico" />
+  <Property Id="ARPPRODUCTICON" Value="awsicon" />
+  <WixVariable Id="WixUIBannerBmp" Value="resources\logo_aws.jpg" />
+  <WixVariable Id="WixUIDialogBmp" Value="resources\dialog.jpg" />
+  <WixVariable Id="WixUILicenseRtf" Value="LICENSE.rtf" />
+  <UIRef Id="WixUI_FeatureTree" />
+
+  <!-- This prepends a shebang to aws-script.py so the exe launcher can find python. -->
+  <CustomAction Id="PrependStep1" Impersonate="no" Directory="AWSCLI64PY3" Execute="deferred" ExeCommand="cmd.exe /c echo #!&quot;[AWSCLI64PY3_RUNTIME]python.exe&quot; > .\bin\tmp.txt"/>
+  <CustomAction Id="PrependStep2" Impersonate="no" Directory="AWSCLI64PY3" Execute="deferred" ExeCommand="cmd.exe /c type .\bin\aws-script.py >> .\bin\tmp.txt"/>
+  <CustomAction Id="PrependStep3" Impersonate="no" Directory="AWSCLI64PY3" Execute="deferred" ExeCommand="cmd.exe /c move /y .\bin\tmp.txt .\bin\aws-script.py"/>
+  <InstallExecuteSequence>
+    <Custom Action="PrependStep1" After="InstallFiles">Not Installed or REINSTALL</Custom>
+    <Custom Action="PrependStep2" After="PrependStep1">Not Installed or REINSTALL</Custom>
+    <Custom Action="PrependStep3" After="PrependStep2">Not Installed or REINSTALL</Custom>
+  </InstallExecuteSequence>
+
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFiles64Folder">
+        <Directory Id="AmazonProgramsFolderRoot" Name="Amazon">
+          <Directory Id="AWSCLI64PY3" Name="AWSCLI">
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+  </Fragment>
+
+</Wix>

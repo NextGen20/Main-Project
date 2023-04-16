@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AWS Management Console</title>
+    <style>
+      #form-container {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>AWS Management Console</h1>
+    <h2>Create IAM User</h2>
+    <form action="{{ url_for('create_iam_user') }}" method="POST">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required><br><br>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required><br><br>
+      <input type="submit" value="Create IAM User">
+    </form>
+    
+    <h1>Create EC2 Instance</h1>
+<form action="{{ url_for('create_ec2_instance') }}" method="POST">
+  <label for="instance_name">Instance Name:</label>
+  <input type="text" id="instance_name" name="instance_name" required><br><br>
+  <label for="ami_id">Operating System:</label>
+  <select id="ami_id" name="ami_id" required>
+    <option value="ami-06e46074ae430fba6">Amazon Linux</option>
+    <option value="ami-00805552fa999b1a0">MacOS</option>
+    <option value="ami-007855ac798b5175e">Ubuntu</option>
+    <option value="ami-0e38fa17744b2f6a5">Windwos</option>
+  </select><br><br>
+  <label for="instance_type">Instance Type:</label>
+  <select id="instance_type" name="instance_type">
+    <option value="t2.micro">t2.micro(1-VCpu,1GB Memory)</option>
+    <option value="t2.small">t2.small(1-VCpu,2GB Memory)</option>
+    <option value="t2.medium">t2.medium(2-VCpu,4GB Memory)</option>
+  </select><br><br>
+  <label for="num_instances">Number of instances:</label>
+  <input type="number" id="num_instances" name="num_instances" min="1" max="10" value="1"><br><br>
+
+  <label for="security_group_id">Security group ID:</label>
+<input type="text" id="security_group_id" name="security_group_id"><br>
+<input type="checkbox" id="default_security_group" name="default_security_group" value="true" >
+<label for="default_security_group">Use default security group</label><br><br>
+
+
+
+
+  
+  <input type="checkbox" id="docker" name="docker" value="true">
+  <label for="docker">Install Docker Engine</label><br>
+  <input type="checkbox" id="jenkins" name="jenkins" value="true">
+  <label for="jenkins">Install Jenkins (Must to mark Install Docker Engine) </label><br><br>
+  
+  
+ 
+  <input type="submit" value="Create EC2 Instance">
+</form>
+    <br>
+  <a href="{{ url_for('homepage') }}">Back to Homepage</a>
+</body>
+</html>
+    
+

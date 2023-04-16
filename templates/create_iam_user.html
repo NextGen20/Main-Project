@@ -1,0 +1,16 @@
+{% comment %} <!DOCTYPE html>
+<html>
+  <head>
+    <title>Create IAM User and EC2 Instance</title>
+  </head>
+  <body>
+    <h1>Create IAM User</h1>
+    <form action="{{ url_for('create_iam_user') }}" method="POST">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required><br><br>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required><br><br>
+      <input type="submit" value="Create IAM User">
+    </form> {% endcomment %}
+
+   

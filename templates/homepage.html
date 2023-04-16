@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Homepage</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/materialize.min.css') }}">
+    <script src="{{ url_for('static', filename='js/materialize.min.js') }}"></script>
+</head>
+<body>
+<div class="container">
+    <h1>Welcome to our Team</h1>
+    {% for user in users_data %}
+        <p>{{user.first_name}} {{user.last_name}}</p>
+    {% endfor %}
+
+    <a href="{{ url_for('docker') }}" class="btn"><i class="material-icons left">Create Docker Image</i></a>
+    <a href="{{ url_for('signup') }}" class="btn"><i class="material-icons left">Sign Up</i></a>
+    <a href="{{ url_for('aws') }}" class="btn"><i class="material-icons left">Aws Management</i></a><br><br>
+    <a href="{{ url_for('jenkins_create_user') }}" class="btn"><i class="material-icons left">Create Jenkins user</i></a>
+    <form action="{{ url_for('create_job') }}" method="POST">
+      
+</div>
+</body>
+</html>
