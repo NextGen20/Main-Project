@@ -6,8 +6,7 @@ from flask_migrate import Migrate, migrate
 from flask import make_response
 import subprocess
 import docker
-#from github import Github
-#import git
+
 import boto3
 import json
 
