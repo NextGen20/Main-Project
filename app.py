@@ -15,7 +15,6 @@ global public_ip
 public_ip = 0
 password = os.environ.get('MYPASSWORD')
 
-
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///my_site.db'
 db = SQLAlchemy(app)
