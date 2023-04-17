@@ -6,16 +6,14 @@ from flask_migrate import Migrate, migrate
 from flask import make_response
 import subprocess
 import docker
-
 import boto3
 import json
-
 import jenkins
 import os
 import time
 global public_ip
 public_ip = 0
-password = os.environ.get('Dockerhub_password')
+password = os.environ.get('MYPASSWORD')
 
 
 app = Flask(__name__)
@@ -30,6 +28,12 @@ class Profile(db.Model):
 
     def __str__(self):
         return f"Name:{self.first_name}, Last:{self.last_name}"
+    
+@app.route("/remove_all")
+def remove_all():
+    Profile.query.delete()
+    db.session.commit()
+    return redirect('/homepage')
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
@@ -45,23 +49,18 @@ def signup():
 
 @app.route("/homepage")
 def homepage():
-    users_data = Profile.query.all()
-    return render_template("homepage.html", users_data=users_data)
-
+    # users_data = Profile.query.all()
+    return render_template("homepage.html")
+client = docker.from_env()
 @app.route('/docker', methods=['GET', 'POST'])
 def docker():
     if request.method == 'POST':
-        image_name = request.form.get('image_name')
-        subprocess.run(['git', 'clone', 'https://github.com/NextGen20/flaskproject.git', '--depth=1', '--filter=blob:none', '--no-checkout', 'Dockerfile'])
-        subprocess.run(['docker', 'build', '-t', f'{image_name}', '.'])
-        subprocess.run(['docker', 'tag', f'{image_name}', f'porto23/flaskproject:{image_name}'])
-        subprocess.run(['docker', 'login', '-u', 'porto23', '-p', "f'{password}'"])
-        subprocess.run(['docker', 'push', f'porto23/flaskproject:{image_name}'])
-        # subprocess.run(['docker', 'rmi', '-f', f'{image_name}'])
-
-
-
-        return f'Docker image {image_name} created and pushed to Docker Hub'
+        image_name = request.form.get('image_name')  
+        dockerfile_path = 'Dockerfile'
+        buildimage = client.images.build(path='.', dockerfile=dockerfile_path, tag=f'porto23/flaskproject:{image_name}')
+        client.login(username='porto23', password=password)
+        client.images.push('porto23/flaskproject', tag={image_name})
+        return f'Docker image created and pushed to Docker Hub'
     else:
         return render_template('docker.html')
 
