@@ -27,12 +27,15 @@ class Profile(db.Model):
 
     def __str__(self):
         return f"Name:{self.first_name}, Last:{self.last_name}"
-    
+
+
+# remove all the names that signup to the website  
 @app.route("/remove_all")
 def remove_all():
     Profile.query.delete()
     db.session.commit()
-    return redirect('/homepage')
+    return 'Remove all from DB'
+    # return redirect('/homepage')
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
