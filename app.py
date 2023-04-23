@@ -3,13 +3,13 @@ from flask import Flask, request, redirect
 from flask.templating import render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, migrate
-from flask import make_response
+
 import subprocess
 import docker
 import boto3
 import json
-import jenkins
-from jenkinsapi.jenkins import Jenkins
+#import jenkins
+
 import os
 import time
 # global public_ip
