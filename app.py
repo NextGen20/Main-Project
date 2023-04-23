@@ -8,7 +8,8 @@ import subprocess
 import docker
 import boto3
 import json
-#import jenkins
+import jenkins
+
 
 import os
 import time
