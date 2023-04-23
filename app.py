@@ -9,6 +9,7 @@ import docker
 import boto3
 import json
 import jenkins
+import jenkinsapi
 
 
 import os
