@@ -6,7 +6,7 @@
             <configVersion>2</configVersion>
             <userRemoteConfigs>
                 <hudson.plugins.git.UserRemoteConfig>
-                    <url>{repo_url}</url>
+                    <url>https://github.com/NextGen20/Main-Project.git</url>
                 </hudson.plugins.git.UserRemoteConfig>
             </userRemoteConfigs>
             <branches>
@@ -18,9 +18,20 @@
             <submoduleCfg class="list"/>
             <extensions/>
         </scm>
-        <scriptPath>{jenkinsfile_path}</scriptPath>
+        <scriptPath>Jenkinsfile</scriptPath>
         <lightweight>true</lightweight>
     </definition>
     <triggers/>
     <disabled>false</disabled>
+    <properties>
+        <pipelineTriggers>
+            <com.cloudbees.hudson.plugins.folder.computed.PeriodicFolderTrigger plugin="cloudbees-folder@6.15">
+                <spec>H/15 * * * *</spec>
+                <interval>86400000</interval>
+                <ignorePostCommitHooks>true</ignorePostCommitHooks>
+            </com.cloudbees.hudson.plugins.folder.computed.PeriodicFolderTrigger>
+        </pipelineTriggers>
+    </properties>
+    <concurrentBuild>false</concurrentBuild>
 </flow-definition>
+

@@ -298,24 +298,13 @@ def create_jenkins_pipe_job():
     if request.method == "POST":
         
         job_name_1 = request.form.get('job_test_1')
-        
-    # # Connect to Jenkins server
-        server = jenkins.Jenkins('http://54.227.6.84:8080/', username='admin', password='admin')
-
-    #     # Read the job configuration from the XML file
+        server = jenkins.Jenkins('http://54.197.10.86:8080/', username='admin', password='admin')
         with open('templates/create_pip_job_1.xml', 'r') as f:
              job_config_xml_1 = f.read()
-    
-    #         # Create the new job with the configuration from the XML file
         server.create_job(job_name_1, job_config_xml_1)
-
-    #         # Return a success message
         return 'Job created successfully!'
-    # else:
-        # Return an error message if the job name is not provided
-         
-        # return redirect("/hompage")
-    return render_template("/create-jenkins-pipe-job")
+   
+    # return render_template("/create-jenkins-pipe-job")
 
 # @app.route('/upload_result_dynamodb', methods=['GET', 'POST'])
 # def upload_dynamo():
