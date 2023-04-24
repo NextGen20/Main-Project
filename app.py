@@ -302,6 +302,8 @@ def create_jenkins_pipe_job():
         with open('templates/create_pip_job_1.xml', 'r') as f:
              job_config_xml_1 = f.read()
         server.create_job(job_name_1, job_config_xml_1)
+        time.sleep(3)
+        server.build_job(job_name_1)
         return 'Job created successfully!'
    
     # return render_template("/create-jenkins-pipe-job")
