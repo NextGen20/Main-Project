@@ -4,21 +4,37 @@
     <meta charset="UTF-8">
     <title>Homepage</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/materialize.min.css') }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        html, body {
+            height: 97%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-image: url("/static/images/sign.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .container {
+            margin-top: 30px; /* Add margin to the top */
+        }
+    </style>
     <script src="{{ url_for('static', filename='js/materialize.min.js') }}"></script>
 </head>
 <body>
-<div class="container">
-    <h1>Welcome to our Team</h1>
-    {% for user in users_data %}
-        <p>{{user.first_name}} {{user.last_name}}</p>
-    {% endfor %}
-
-    <a href="{{ url_for('docker') }}" class="btn"><i class="material-icons left">Create Docker Image</i></a>
-    <a href="{{ url_for('signup') }}" class="btn"><i class="material-icons left">Sign Up</i></a>
-    <a href="{{ url_for('aws') }}" class="btn"><i class="material-icons left">Aws Management</i></a><br><br>
-    <a href="{{ url_for('jenkins_create_user') }}" class="btn"><i class="material-icons left"> Jenkins </i></a>
+    <div class="container">
+        
+        {% for user in users_data %}
+            <p>{{user.first_name}} {{user.last_name}}</p>
+        {% endfor %}
     
-      
-</div>
+        <div class="button-column">
+            <a href="{{ url_for('docker') }}" class="btn"><i class="material-icons left">computer</i>Create Docker Image</a>
+            <a href="{{ url_for('signup') }}" class="btn"><i class="material-icons left">person_add</i>Sign Up</a>
+            <a href="{{ url_for('aws') }}" class="btn"><i class="material-icons left">cloud</i>Aws Management</a>
+            <a href="{{ url_for('jenkins_create_user') }}" class="btn"><i class="material-icons left">build</i>Jenkins</a>
+        </div> 
+    </div>
 </body>
 </html>

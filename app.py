@@ -10,7 +10,8 @@ import boto3
 import json
 import jenkins
 import jenkinsapi
-
+import jenkinscfg
+#background-image: url("/home/amit/Desktop/project-2-vscode/Main-Project/static/images/im.jpeg");
 
 import os
 import time
@@ -27,9 +28,12 @@ class Profile(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(20), unique=False, nullable=False)
     last_name = db.Column(db.String(20), unique=False, nullable=False)
-
+    # password = db.Column(db.String(20), unique=False, nullable=False)
     def __str__(self):
         return f"Name:{self.first_name}, Last:{self.last_name}"
+
+
+
 
 
 # remove all the names that signup to the website  
@@ -45,6 +49,8 @@ def signup():
     if request.method == "POST":
         first_name = request.form.get("fname")
         last_name = request.form.get("lname")
+        # email = request.form.get("email")
+        # password = request.form.get("password")
         p = Profile(first_name=first_name, last_name=last_name)
         db.session.add(p)
         db.session.commit()
@@ -155,6 +161,20 @@ def create_ec2_instance():
         global public_ip 
         public_ip = instance.get('PublicIpAddress')
         instances.append(instance_data)
+        
+        config = jenkinscfg.Config(f"http://{public_ip}:8080")
+        config.plugins.install('configuration-as-code')
+        config.apply({
+        '        unclassified': {
+            'globalSecurityConfig': {
+                'useSecurity': True,
+                'disableSignup': True
+            },
+            'setupWizard': {
+                'isWizardPerformed': True
+            }
+        }
+    })
         
         # Get the instance ID of the instance you just launched
     for instance in instances:
@@ -273,24 +293,16 @@ def create_job():
     if request.method == "POST":
         
         job_name = request.form.get('job_test')
-        
-    # # Connect to Jenkins server
         server = jenkins.Jenkins('http://54.227.6.84:8080/', username='admin', password='admin')
-
-    #     # Read the job configuration from the XML file
         with open('templates/jenkins_job.xml', 'r') as f:
              job_config_xml = f.read()
-    
-    #         # Create the new job with the configuration from the XML file
         server.create_job(job_name, job_config_xml)
-
-    #         # Return a success message
         return 'Job created successfully!'
     # else:
         # Return an error message if the job name is not provided
          
         # return redirect("/hompage")
-    return render_template("create-jenkins-job.html")
+    # return render_template("create-jenkins-job.html")
 
 
 @app.route('/create_jenkins_pipe_job', methods=['GET', 'POST'])
