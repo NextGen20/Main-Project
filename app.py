@@ -1,5 +1,6 @@
+from curses import flash
 import os.path
-from flask import Flask, request, redirect
+from flask import Flask, request, redirect, url_for
 from flask.templating import render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, migrate
@@ -28,7 +29,9 @@ class Profile(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(20), unique=False, nullable=False)
     last_name = db.Column(db.String(20), unique=False, nullable=False)
-    # password = db.Column(db.String(20), unique=False, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(128), nullable=False)
+    
     def __str__(self):
         return f"Name:{self.first_name}, Last:{self.last_name}"
 
@@ -49,9 +52,9 @@ def signup():
     if request.method == "POST":
         first_name = request.form.get("fname")
         last_name = request.form.get("lname")
-        # email = request.form.get("email")
-        # password = request.form.get("password")
-        p = Profile(first_name=first_name, last_name=last_name)
+        password = request.form.get("password")
+        email = request.form.get("email")
+        p = Profile(first_name=first_name, last_name=last_name, password=password, email=email)
         db.session.add(p)
         db.session.commit()
         return redirect('/homepage')
