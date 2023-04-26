@@ -1,6 +1,6 @@
 from curses import flash
 import os.path
-from flask import Flask, request, redirect, url_for
+from flask import Flask, request, redirect, session, url_for
 from flask.templating import render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, migrate
@@ -57,6 +57,7 @@ def signup():
         p = Profile(first_name=first_name, last_name=last_name, password=password, email=email)
         db.session.add(p)
         db.session.commit()
+        # session["first_name"] = first_name
         return redirect('/homepage')
         
     return render_template("signup.html")
@@ -67,8 +68,9 @@ def root():
 
 @app.route("/homepage")
 def homepage():
-    # users_data = Profile.query.all()
-    return render_template("homepage.html")
+    users_data = Profile.query.all()
+    return render_template("homepage.html", user=users_data[0])
+
 client = docker.from_env()
 @app.route('/docker', methods=['GET', 'POST'])
 def docker():
@@ -264,6 +266,8 @@ def create_iam_user():
 
 
 @app.route("/jenkins", methods=["GET", "POST"])
+def jenkins_():
+ return render_template("jenkins.html")
 
 def jenkins_create_user():
     if request.method == "POST":
