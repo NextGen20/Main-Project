@@ -19,18 +19,28 @@
         .container {
             margin-top: 30px; /* Add margin to the top */
         }
+        .welcome {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        .button-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
     </style>
     <script src="{{ url_for('static', filename='js/materialize.min.js') }}"></script>
 </head>
 <body>
     <div class="container">
-        <p style="text-align: center; font-weight: bold; font-size: 24px;">Welcome {{ user.first_name }}</p>
+        <p style="text-align: center; font-weight: bold; font-size: 24px;"span class="welcome">Hello {{ user.first_name }}</span></p>
 
         <div class="button-column">
-            <a href="{{ url_for('docker') }}" class="btn"><i class="material-icons left">computer</i>Create Docker Image</a>
-            <a href="{{ url_for('signup') }}" class="btn"><i class="material-icons left">person_add</i>Sign Up</a>
-            <a href="{{ url_for('aws') }}" class="btn"><i class="material-icons left">cloud</i>Aws Management</a>
-            <a href="{{ url_for('jenkins_') }}" class="btn"><i class="material-icons left">build</i>Jenkins</a>
+            <a href="{{ url_for('docker') }}" class="btn"><i class="material-icons left">computer</i>Create Docker Image</a><br>
+            <a href="{{ url_for('signup') }}" class="btn"><i class="material-icons left">person_add</i>Sign Up</a><br>
+            <a href="{{ url_for('aws') }}" class="btn"><i class="material-icons left">cloud</i>Aws Management</a><br>
+            <a href="{{ url_for('jenkins_') }}" class="btn"><i class="material-icons left">build</i>Jenkins</a><br>
         </div> 
     </div>
 </body>
