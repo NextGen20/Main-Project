@@ -4,7 +4,6 @@ from flask import Flask, request, redirect, session, url_for
 from flask.templating import render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, migrate
-
 import subprocess
 import docker
 import boto3
@@ -169,7 +168,7 @@ def create_ec2_instance():
     #     }
     # })
         
-        # Get the instance ID of the instance you just launched
+       
     for instance in instances:
         while instances[0]['public_ip'] is None:
          print(f"Waiting for public IP address for instance {instance['id']}...")
