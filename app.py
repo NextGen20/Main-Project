@@ -11,7 +11,6 @@ import json
 import jenkins
 import jenkinsapi
 import jenkinscfg
-
 import os
 import time
 
