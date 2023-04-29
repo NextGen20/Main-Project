@@ -115,9 +115,13 @@ def create_ec2_instance():
     
     if install_docker:
         user_data += "sudo apt-get update && sudo apt-get -y install docker.io\n"
+    
 
     if install_jenkins:
-        user_data += "sudo docker pull jenkins/jenkins:lts && sudo docker run -d -p 8080:8080 -p 50000:50000 --name Jenkins_master -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts"
+        user_data += 'docker run --name jenkins_master -p 8080:8080 -p 50000:50000 -d -v /var/run/docker.sock:/var/run/docker.sock -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts\n'
+        
+    
+        
    
     
 
@@ -298,7 +302,7 @@ def create_jenkins_pipe_job():
     if request.method == "POST":
         
         job_name_1 = request.form.get('job_test_1')
-        server = jenkins.Jenkins('http://44.207.4.178:8080/', username='admin', password='admin')
+        server = jenkins.Jenkins('http://18.209.46.139:8080/', username='admin', password='admin')
         with open('templates/create_pip_job_1.xml', 'r') as f:
              job_config_xml_1 = f.read()
         server.create_job(job_name_1, job_config_xml_1)
@@ -309,7 +313,7 @@ def create_jenkins_pipe_job():
     
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True , port=5000)
     
     
 

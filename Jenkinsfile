@@ -9,6 +9,20 @@ pipeline {
     // }
 
     stages {
+         stage('Install Python') {
+            steps {
+                sh 'sudo apt-get update'
+                sh 'sudo apt-get install -y python3 python3-pip'
+            }
+        stage('Docker installation') {
+            steps {
+                sh '''
+                    curl -fsSL https://get.docker.com -o get-docker.sh
+                    sh get-docker.sh
+                    sudo usermod -aG docker jenkins
+                '''
+            }
+        }
         stage('Git_Clone') {
             steps {
                 git branch: 'main', url: 'https://github.com/NextGen20/Main-Project.git'
