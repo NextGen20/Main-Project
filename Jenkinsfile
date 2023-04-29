@@ -9,13 +9,6 @@ pipeline {
             }
         }
 
-        stage('Install Python') {
-            steps {
-                sh 'sudo apt-get update'
-                sh 'sudo apt-get install -y python3 python3-pip'
-            }
-        }
-
         stage('Git Clone') {
             steps {
                 git branch: 'main', url: 'https://github.com/NextGen20/Main-Project.git'
