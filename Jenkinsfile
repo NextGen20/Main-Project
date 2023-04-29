@@ -7,7 +7,8 @@ pipeline {
         stage('Install Docker') {
             steps {
                 sh 'curl -fsSL https://get.docker.com -o get-docker.sh'
-                sh 'sudo get-docker.sh'
+                sh 'su -c "sh get-docker.sh"'
+
             }
         }
 
