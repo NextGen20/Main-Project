@@ -5,7 +5,15 @@ pipeline {
     stages {
         stage('Install Docker') {
             steps {
-                sh 'apt-get -y install docker.io'
+                sh 'curl -fsSL https://get.docker.com -o get-docker.sh'
+                sh 'su -c sh get-docker.sh'
+            }
+        }
+
+        stage('Install Python') {
+            steps {
+                sh ' su -c apt-get update'
+                sh ' su -c apt-get install -y python3 python3-pip'
             }
         }
 
