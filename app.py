@@ -302,7 +302,7 @@ def create_jenkins_pipe_job():
     if request.method == "POST":
         
         job_name_1 = request.form.get('job_test_1')
-        server = jenkins.Jenkins('http://18.209.46.139:8080/', username='admin', password='admin')
+        server = jenkins.Jenkins('http://18.205.235.136:8080/', username='admin', password='admin')
         with open('templates/create_pip_job_1.xml', 'r') as f:
              job_config_xml_1 = f.read()
         server.create_job(job_name_1, job_config_xml_1)
