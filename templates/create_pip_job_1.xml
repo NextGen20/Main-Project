@@ -18,7 +18,7 @@
             <submoduleCfg class="list"/>
             <extensions/>
         </scm>
-        <scriptPath>/first-app/Jenkinsfile</scriptPath>
+        <scriptPath>first-app/Jenkinsfile</scriptPath>
         <lightweight>true</lightweight>
     </definition>
     <triggers/>
