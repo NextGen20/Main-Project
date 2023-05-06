@@ -9,6 +9,7 @@
 	#upgrade pip+install flask
 	RUN pip install --upgrade pip
 	RUN pip install --ignore-installed -r requirements.txt
+
 	
 	# Bundle app source
 	COPY . .
