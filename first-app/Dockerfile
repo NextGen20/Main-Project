@@ -4,7 +4,7 @@
 	WORKDIR /app
 	
 	
-	COPY requirements.txt ./
+	# COPY requirements.txt ./
 	
 	#upgrade pip+install flask
 	RUN pip install --upgrade pip
