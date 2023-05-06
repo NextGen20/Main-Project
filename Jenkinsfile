@@ -1,7 +1,9 @@
 
 /* groovylint-disable-next-line CompileStatic */
 pipeline {
-    agent any
+    agent {
+        label 'slave'
+    }
 
     stages {
         // stage('Install Docker') {

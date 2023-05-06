@@ -6,13 +6,14 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, migrate
 import subprocess
 import docker
-import boto3
 import json
 import jenkins
 import jenkinsapi
 import jenkinscfg
 import os
 import time
+import boto3
+
 
 password = os.environ.get('MYPASSWORD')
 
@@ -118,7 +119,7 @@ def create_ec2_instance():
     
 
     if install_jenkins:
-        user_data += 'docker run --name jenkins_master -p 8080:8080 -p 50000:50000 -d -v /var/run/docker.sock:/var/run/docker.sock -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts\n'
+        user_data += 'docker run --name jenkins_master -p 8080:8080 -p 50000:50000 -d -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts\n'
         
     
         
@@ -302,7 +303,7 @@ def create_jenkins_pipe_job():
     if request.method == "POST":
         
         job_name_1 = request.form.get('job_test_1')
-        server = jenkins.Jenkins('http://18.205.235.136:8080/', username='admin', password='admin')
+        server = jenkins.Jenkins('http://54.242.42.36:8080/', username='admin', password='admin')
         with open('templates/create_pip_job_1.xml', 'r') as f:
              job_config_xml_1 = f.read()
         server.create_job(job_name_1, job_config_xml_1)
