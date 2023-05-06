@@ -15,7 +15,7 @@
 	COPY . .
 	
 	#port expose for web app
-	EXPOSE 5000
+	# EXPOSE 5000
 	
 	#run on command line with param
 	CMD ["python3.8", "firstapp.py"]
