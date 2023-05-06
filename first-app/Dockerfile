@@ -18,4 +18,4 @@
 	EXPOSE 5000
 	
 	#run on command line with param
-	CMD ["python3.8", "app.py"]
+	CMD ["python3.8", "firstapp.py"]
