@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>Signup</title>
+    <style>
+      .signup-form {
+        margin-left: auto;
+        margin-right: 45%;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f5f5f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+      
+      .signup-form {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        padding: 30px;
+        max-width: 400px;
+        width: 100%;
+        opacity: 0.92;
+      }
+      
+      .signup-form h2 {
+        color: #333;
+        font-size: 24px;
+        margin-bottom: 30px;
+        text-align: center;
+      }
+      
+      .signup-form input[type='text'],
+      .signup-form input[type='email'],
+      .signup-form input[type='password'] {
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        font-size: 16px;
+        margin-bottom: 20px;
+        padding: 12px 15px;
+        width: 100%;
+      }
+      
+      .signup-form input[type='submit'] {
+        background-color: #333;
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 20px;
+        padding: 12px 15px;
+        transition: background-color 0.2s;
+        width: 100%;
+      }
+      
+      .signup-form input[type='submit']:hover {
+        background-color: #555;
+      }
+      
+      .signup-form label {
+        display: block;
+        color: #333;
+        margin-bottom: 10px;
+      }
+    </style>
+    <style>
+      body {
+          background-image: url("/static/images/sign.jpg");
+          background-repeat: no-repeat;
+          background-size: cover;
+      }
+      .container {
+          margin-top: 50px; /* Add margin to the top */
+      }
+  </style>
+  </head>
+  <body>
+    <form class="signup-form" method="post" enctype="multipart/form-data">
+      <h2>Signup</h2>
+      <label for="fname">First Name:</label>
+      <input type="text" name="fname" id="fname" placeholder="Enter your first name" required />
+      
+      <label for="lname">Last Name:</label>
+      <input type="text" name="lname" id="lname" placeholder="Enter your last name" required />
+      
+      <label for="email">Email:</label>
+      <input type="email" name="email" id="email" placeholder="Enter your email"  />
+      
+      <label for="password">Password:</label>
+      <input type="password" name="password" id="password" placeholder="Enter your password"  />
+      
+      <input type="submit" value="Submit" />
+    </form>
+  </body>
+</html>
