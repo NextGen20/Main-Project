@@ -6,6 +6,8 @@ from flask.templating import render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, migrate
 
+
+
 app = Flask(__name__)
 app.secret_key = 'amit'
 
@@ -52,10 +54,10 @@ def signup():
 def root():
     return redirect('/signup')
 
-# # @app.route("/homepage")
-# def homepage():
-# #     fname = session.get('fname', '')
-# #     return render_template('homepage.html', message=fname)
+@app.route("/homepage")
+def homepage():
+    fname = session.get('fname', '')
+    return render_template('homepage.html', message=fname)
 
 if __name__ == "__main__":
     app.run(debug=True , host="0.0.0.0", port=5000)
