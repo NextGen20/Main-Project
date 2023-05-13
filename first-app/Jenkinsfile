@@ -21,7 +21,7 @@ pipeline {
         stage('Test-App') {
             steps {
                 dir('first-app/test_app') {
-                    sh 'pytest app.py'
+                    sh 'pytest test_app.py'
                 }
             }
         }
