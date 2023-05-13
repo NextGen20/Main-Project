@@ -22,7 +22,7 @@ def test_signup(driver):
     file_handler = logging.FileHandler('test.log')
     logger.addHandler(file_handler)
     logger.setLevel(logging.INFO)
-    logger.info('This is a log message')
+    # logger.info('This is a log message')
 
     chrome_driver_path = ChromeDriverManager().install()
     chrome_options = Options()

@@ -15,4 +15,4 @@ COPY . .
 
 
 EXPOSE 5000
-CMD ["python3.8", "firstapp.py"]
+CMD ["python3.8", "app.py"]
