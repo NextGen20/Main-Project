@@ -20,8 +20,9 @@ pipeline {
         }
         stage('Test-App') {
             steps {
-                dir('first-app'):
-                sh 'pytest app.py'
+                dir('first-app') {
+                    sh 'pytest app.py'
+                }
             }
         }
     }
