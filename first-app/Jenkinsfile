@@ -20,11 +20,23 @@ pipeline {
         }
         stage('Test-App') {
             steps {
+                sh '''
+            export DISPLAY=:99
+            Xvfb :99 -screen 0 1024x768x16 &
+            sleep 3
+        '''
                 dir('first-app/test_app') {
                     sh 'pytest test_app.py'
                 }
             }
         }
+    // stage('Test-App') {
+    //     steps {
+    //         dir('first-app/test_app') {
+    //             sh 'pytest test_app.py'
+    //         }
+    //     }
+    // }
     }
 
     post {

@@ -40,7 +40,7 @@ def test_signup(driver):
     last_name.send_keys("bachars")
     logger.info("Entered last name")
     email = driver.find_element(By.NAME, "email")
-    email.send_keys("amitbachargmail.com")
+    email.send_keys("amitbachar2@gmail.com")
     logger.info("Entered email")
     password = driver.find_element(By.NAME, "password")
     password.send_keys("ab123456")
