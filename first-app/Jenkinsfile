@@ -19,16 +19,21 @@ pipeline {
         //         sh ' apt-get install -y python3 python3-pip'
         //     }
         // }
-        // stage('Git Clone') {
-        //     steps {
-        //         git branch: 'main', url: 'https://github.com/NextGen20/Main-Project.git'
-        //     }
-        // }
+        stage('Git Clone') {
+            steps {
+                git branch: 'main', url: 'https://github.com/NextGen20/Main-Project.git'
+            }
+        }
 
         stage('Build & Run Image') {
             steps {
                 sh 'sudo docker build -t flaskproject/myproject:latest ./first-app'
                 sh 'sudo docker run --name flaskapp1 -d -p 5000:5000 flaskproject/myproject:latest'
+            }
+        }
+        stage('Test-App') {
+            steps {
+                sh 'pytest tess_app.py'
             }
         }
     }
