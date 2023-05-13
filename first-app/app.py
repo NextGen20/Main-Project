@@ -6,8 +6,6 @@ from flask.templating import render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, migrate
 
-
-
 app = Flask(__name__)
 app.secret_key = 'amit'
 
