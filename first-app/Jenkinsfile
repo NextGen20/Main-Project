@@ -21,10 +21,16 @@ pipeline {
         stage('Test-App') {
             steps {
                 dir('first-app/test_app') {
-                    sh 'pytest test_app.py'
+                    sh 'pytest test_app.py > test.log'
                 }
             }
         }
+         stage('AWS S3 Upload') {
+            steps {
+                withAWS(credentials: 'aws-key', region: 'us-east-1') {
+                    s3Upload(bucket: 'jenkins-sqlabs-amitb', path: 'project1/', includePathPattern: 'test.log')
+                }
+            }
     // stage('Test-App') {
     //     steps {
     //         dir('first-app/test_app') {
