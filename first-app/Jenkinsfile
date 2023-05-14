@@ -31,6 +31,7 @@ pipeline {
                     s3Upload(bucket: 'jenkins-sqlabs-amitb', path: 'project1/', includePathPattern: 'test.log')
                 }
             }
+         }
     // stage('Test-App') {
     //     steps {
     //         dir('first-app/test_app') {
