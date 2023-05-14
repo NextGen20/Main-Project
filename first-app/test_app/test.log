@@ -1,4 +1,3 @@
-This is a log message
 Chrome browser opened
 Navigated to signup page
 Entered first name
@@ -9,14 +8,6 @@ Clicked on submit button
 Welcome message displayed
 Test case passed
 Chrome browser opened
-Chrome browser opened
-Navigated to signup page
-Entered first name
-Entered last name
-Entered email
-Entered password
-Clicked on submit button
-Chrome browser opened
 Navigated to signup page
 Entered first name
 Entered last name
@@ -24,14 +15,7 @@ Entered email
 Entered password
 Clicked on submit button
 Welcome message displayed
-Chrome browser opened
-Navigated to signup page
-Entered first name
-Entered last name
-Entered email
-Entered password
-Clicked on submit button
-Welcome message displayed
+Test case passed
 Chrome browser opened
 Navigated to signup page
 Entered first name
