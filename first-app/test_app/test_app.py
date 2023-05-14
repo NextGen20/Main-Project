@@ -6,18 +6,19 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import time
 import logging
-from selenium.webdriver.chrome.options import Options
 
 options = Options()
 options.add_argument('--headless')
 options.add_argument('--disable-gpu')
 options.add_argument('--no-sandbox')
+options.add_argument('--disable-dev-shm-usage')
 
 @pytest.fixture()
 def driver():
-    driver = webdriver.Chrome(options=options)
+    chrome_driver_path = ChromeDriverManager().install()
+    service_obj = Service(chrome_driver_path)
+    driver = webdriver.Chrome(service=service_obj, options=options)
     yield driver
     driver.quit()
 
@@ -29,12 +30,6 @@ def test_signup(driver):
     logger.addHandler(file_handler)
     logger.setLevel(logging.INFO)
     logger.info('This is a log message')
-
-    chrome_driver_path = ChromeDriverManager().install()
-    chrome_options = Options()
-    chrome_options.add_experimental_option("detach", True)
-    service_obj = Service(chrome_driver_path)
-    driver = webdriver.Chrome(service=service_obj, options=chrome_options)
     
     logger.info("Chrome browser opened")
     driver.get("http://localhost:5000/signup")
@@ -62,7 +57,3 @@ def test_signup(driver):
     
     assert welcome_message == expected_message
     logger.info("Test case passed")
-
-    
-
-
