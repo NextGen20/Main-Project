@@ -8,10 +8,16 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 import logging
+from selenium.webdriver.chrome.options import Options
+
+options = Options()
+options.add_argument('--headless')
+options.add_argument('--disable-gpu')
+options.add_argument('--no-sandbox')
 
 @pytest.fixture()
 def driver():
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome(options=options)
     yield driver
     driver.quit()
 
@@ -22,7 +28,7 @@ def test_signup(driver):
     file_handler = logging.FileHandler('test.log')
     logger.addHandler(file_handler)
     logger.setLevel(logging.INFO)
-    # logger.info('This is a log message')
+    logger.info('This is a log message')
 
     chrome_driver_path = ChromeDriverManager().install()
     chrome_options = Options()
