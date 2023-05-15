@@ -42,12 +42,12 @@ pipeline {
                 sh 'sudo docker push flaskproject/myproject:latest'
             }
         }
-
+     }
         post {
             always {
                 sh 'sudo docker stop $(sudo docker ps -aq)'
                 sh 'sudo docker rm $(sudo docker ps -aq)'
             }
         }
-    }
+   
 }
