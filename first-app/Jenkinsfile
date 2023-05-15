@@ -15,8 +15,8 @@ pipeline {
         stage('Build & Run Image') {
             steps {
                 script {
-                    env.VERSION = "${env.BUILD_NUMBER}"
-                    env.VERSION1 = "${env.BUILD_TIMESTAMP}"
+                    env.COUNTER += 1
+                    env.VERSION = "1.0.${env.COUNTER}"
                     sh "sudo docker build -t porto23/flaskproject:flask_app-${env.VERSION} ./first-app"
                     sh 'sudo docker run --name flaskapp1 -d -p 5000:5000 flaskproject/myproject:latest'
                 }
@@ -49,7 +49,7 @@ pipeline {
         stage('PUSH-To-DOCKERHUB') {
             steps {
                 sh 'sudo docker login -u porto23 -p Amit29789'
-                sh "sudo docker push porto23/flaskproject:flask_app-${env.VERSION1}"
+                sh "sudo docker push porto23/flaskproject:flask_app-${env.VERSION}"
             }
         }
     }
