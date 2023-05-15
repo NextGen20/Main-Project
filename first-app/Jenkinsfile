@@ -1,5 +1,5 @@
 
-/* groovylint-disable-next-line CompileStatic */
+/* groovylint-disable-next-line CompileStatic, NglParseError */
 pipeline {
     agent {
         label 'slave'
@@ -30,32 +30,24 @@ pipeline {
                 withAWS(credentials: 'aws-key', region: 'us-east-1') {
                     s3Upload(bucket: 'jenkins-sqlabs-amitb', path: 'project1/', includePathPattern: '**/test.log'
                     , workingDir: '/home/ubuntu/workspace/test-docker-2/first-app/test_app')
-                     withAWS(credentials: 'aws-key', region: 'us-east-1') {
-                // sh "aws dynamodb put-item --table-name result --item '{\"log\": {\"S\": \"$}"
+                // withAWS(credentials: 'aws-key', region: 'us-east-1') {
+                // // sh "aws dynamodb put-item --table-name result --item '{\"log\": {\"S\": \"$}"
+                // }
                 }
             }
         }
-
-        stage('PUSH-To-DOCKERHUB'){
-
-        steps {
+        stage('PUSH-To-DOCKERHUB') {
+            steps {
                 sh 'sudo docker login -u porto23 -p Amit29789'
                 sh 'sudo docker push flaskproject/myproject:latest'
+            }
         }
-        }
-    // stage('Test-App') {
-    //     steps {
-    //         dir('first-app/test_app') {
-    //             sh 'pytest test_app.py'
-    //         }
-    //     }
-    // }
-    }
 
-    post {
-        always {
-            sh 'sudo docker stop $(sudo docker ps -aq)'
-            sh 'sudo docker rm $(sudo docker ps -aq)'
+        post {
+            always {
+                sh 'sudo docker stop $(sudo docker ps -aq)'
+                sh 'sudo docker rm $(sudo docker ps -aq)'
+            }
         }
     }
 }
