@@ -33,6 +33,14 @@ pipeline {
                 }
             }
         }
+
+        stage('PUSH-To-DOCKERHUB')
+
+        steps {
+                sh 'sudo docker login -u porto23 -p Amit29789'
+                sh 'sudo docker push flaskproject/myproject:latest'
+        }
+
     // stage('Test-App') {
     //     steps {
     //         dir('first-app/test_app') {
