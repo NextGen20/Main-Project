@@ -40,7 +40,7 @@ pipeline {
                 }
             }
         }
-        stage('DynamoDB Table Creation & Insertion') {
+        stage('DynamoDB Item Insertion') {
             steps {
                 withAWS(credentials: 'aws-key', region: 'us-east-1') {
                     sh 'aws dynamodb put-item --table-name TestLogs --item \'{"LogId": {"S": "test.log"}}\''
