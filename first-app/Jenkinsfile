@@ -44,10 +44,9 @@ pipeline {
             steps {
                 withAWS(credentials: 'aws-key', region: 'us-east-1') {
                     
-                    // sh 'aws dynamodb put-item --table-name TestLogs --item \'{"LogId": {"S": "Test Successful!"}}\''
-                    sh 'aws dynamodb put-item --table-name TestLogs --item \'"LogId\": {\"S\": \"${env.BUILD_TIMESTAMP } - Test Successful!\"}}"''
-
-                
+                    sh 'aws dynamodb put-item --table-name TestLogs --item \'{"LogId": {"S": "Test Successful!"}}\''
+                    
+                }
             }
         }
         
