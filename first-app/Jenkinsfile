@@ -47,7 +47,7 @@ pipeline {
                     // sh 'aws dynamodb put-item --table-name TestLogs --item \'{"LogId": {"S": "Test Successful!"}}\''
                     sh 'aws dynamodb put-item --table-name TestLogs --item \'"LogId\": {\"S\": \"${env.BUILD_TIMESTAMP } - Test Successful!\"}}"''
 
-                }
+                
             }
         }
         
