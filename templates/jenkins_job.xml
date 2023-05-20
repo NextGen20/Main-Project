@@ -1,26 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>A sample Jenkins job</description>
+  <description>A sample Jenkins freestyle job</description>
   <keepDependencies>false</keepDependencies>
   <properties/>
-  <scm class="hudson.plugins.git.GitSCM" plugin="git@4.7.2">
-    <configVersion>2</configVersion>
-    <userRemoteConfigs>
-      <hudson.plugins.git.UserRemoteConfig>
-        <url>https://github.com/username/repo.git</url>
-        <credentialsId>git-credentials</credentialsId>
-      </hudson.plugins.git.UserRemoteConfig>
-    </userRemoteConfigs>
-    <branches>
-      <hudson.plugins.git.BranchSpec>
-        <name>*/master</name>
-      </hudson.plugins.git.BranchSpec>
-    </branches>
-    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
-    <submoduleCfg class="list"/>
-    <extensions/>
-  </scm>
+  <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
@@ -29,9 +13,19 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>echo &quot;Hello, World!&quot;</command>
+      <command>
+        # Get the latest image tag from Docker Hub
+        IMAGE_TAG=$(curl -s "https://hub.docker.com/v2/repositories/porto23/flaskproject/tags" | jq -r '.results[0].name')
+
+        # Pull the Docker image
+        docker pull porto23/flaskproject:${IMAGE_TAG}
+
+        # Run the Docker container
+        docker run --name flaskapp -d -p 5000:5000 porto23/flaskproject:${IMAGE_TAG}
+      </command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
   <buildWrappers/>
 </project>
+

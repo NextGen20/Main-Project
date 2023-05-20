@@ -32,17 +32,13 @@ class Profile(db.Model):
     def __str__(self):
         return f"Name:{self.first_name}, Last:{self.last_name}"
 
-
-
-
-
-# remove all the names that signup to the website  
+ 
 @app.route("/remove_all")
 def remove_all():
     Profile.query.delete()
     db.session.commit()
     return 'Remove all from DB'
-    # return redirect('/homepage')
+    
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
@@ -63,10 +59,12 @@ def signup():
 def root():
     return redirect('/signup')
 
+
 @app.route("/homepage")
 def homepage():
-    users_data = Profile.query.all()
-    return render_template("homepage.html", user=users_data[0])
+    users_data = Profile.query.order_by(Profile.id.desc()).first()
+    return render_template("homepage.html", user=users_data)
+
 
 client = docker.from_env()
 @app.route('/docker', methods=['GET', 'POST'])
@@ -121,11 +119,6 @@ def create_ec2_instance():
     if install_jenkins:
         user_data += 'docker run --name jenkins_master -p 8080:8080 -p 50000:50000 -d -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts\n'
         
-    
-        
-   
-    
-
     response = ec2.run_instances(
     ImageId=ami_id_value,
     InstanceType=instance_type,
@@ -158,19 +151,7 @@ def create_ec2_instance():
         public_ip = instance.get('PublicIpAddress')
         instances.append(instance_data)
         
-    #     config = jenkinscfg.(f"http://{public_ip}:8080")
-    #     config.plugins.install('configuration-as-code')
-    #     config.apply({
-    #     '        unclassified': {
-    #         'globalSecurityConfig': {
-    #             'useSecurity': True,
-    #             'disableSignup': True
-    #         },
-    #         'setupWizard': {
-    #             'isWizardPerformed': True
-    #         }
-    #     }
-    # })
+
         
        
     for instance in instances:
@@ -291,10 +272,12 @@ def create_job():
     if request.method == "POST":
         
         job_name = request.form.get('job_test')
-        server = jenkins.Jenkins('http://54.227.6.84:8080/', username='admin', password='admin')
+        server = jenkins.Jenkins('http://3.89.63.187:8080/', username='admin', password='admin')
         with open('templates/jenkins_job.xml', 'r') as f:
              job_config_xml = f.read()
         server.create_job(job_name, job_config_xml)
+        time.sleep(3)
+        server.build_job(job_name)
         return 'Job created successfully!'
 
 
@@ -303,7 +286,7 @@ def create_jenkins_pipe_job():
     if request.method == "POST":
         
         job_name_1 = request.form.get('job_test_1')
-        server = jenkins.Jenkins('http://54.242.42.36:8080/', username='admin', password='admin')
+        server = jenkins.Jenkins('http://54.163.202.135:8080/', username='admin', password='admin')
         with open('templates/create_pip_job_1.xml', 'r') as f:
              job_config_xml_1 = f.read()
         server.create_job(job_name_1, job_config_xml_1)
