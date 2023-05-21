@@ -34,9 +34,7 @@ pipeline {
                 withAWS(credentials: 'aws-key', region: 'us-east-1') {
                     s3Upload(bucket: 'jenkins-sqlabs-amitb', path: 'project1/', includePathPattern: '**/test.log'
                     , workingDir: '/home/ubuntu/workspace/test-docker-2/first-app/test_app')
-                // withAWS(credentials: 'aws-key', region: 'us-east-1') {
-                // // sh "aws dynamodb put-item --table-name result --item '{\"log\": {\"S\": \"$}"
-                // }
+                
                 }
             }
         }
