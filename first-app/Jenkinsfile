@@ -1,5 +1,3 @@
-
-/* groovylint-disable-next-line CompileStatic, NglParseError */
 pipeline {
     agent {
         label 'slave'
@@ -42,19 +40,13 @@ pipeline {
             steps {
                 withAWS(credentials: 'aws-key', region: 'us-east-1') {
                     
-                    sh 'aws dynamodb put-item --table-name TestLogs --item \'{"LogId": {"S":"Test Successful!"}}\''
+                    sh "aws dynamodb put-item --table-name TestLogs --item '{\"LogId\": {\"S\": \"${env.BUILD_TIMESTAMP} - Test Successful!\"}}'"
                     
                 }
             }
         }
         
-        // stage('DynamoDB Item Insertion') {
-        //     steps {
-        //         withAWS(credentials: 'aws-key', region: 'us-east-1') {
-        //             sh 'aws dynamodb put-item --table-name TestLogs --item \'{"LogId": {"S": "test.log"}}\''
-        //         }
-        //     }
-        // }
+    
         stage('PUSH-To-DOCKERHUB') {
             steps {
                 sh 'sudo docker login -u porto23 -p Amit29789'
