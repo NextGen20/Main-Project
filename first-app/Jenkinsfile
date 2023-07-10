@@ -15,7 +15,7 @@ pipeline {
                 script {
                     env.VERSION = "1.0.${env.BUILD_NUMBER}"
                     sh "sudo docker build -t porto23/flaskproject:flask_app-${env.VERSION} ./first-app"
-                    sh 'sudo docker run --name flaskapp1 -d -p 5000:5000 flaskproject/myproject:latest'
+                    sh "sudo docker run --name flaskapp1 -d -p 5000:5000 porto23/flaskproject:flask_app-${env.VERSION}"
                 }
             }
         }
