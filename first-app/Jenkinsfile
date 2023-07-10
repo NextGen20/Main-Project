@@ -23,7 +23,7 @@ pipeline {
         stage('Test-App') {
             steps {
                 dir('first-app/test_app') {
-                    sh 'pytest test_app.py'
+                    sh 'python3 -m pytest test_app.py'
                 }
             }
         }
