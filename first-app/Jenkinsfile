@@ -43,15 +43,26 @@ pipeline {
         '''
     }
 }
+        // stage('DynamoDB Item Insertion') {
+        //     steps {
+        //         withAWS(credentials: 'aws-key', region: 'us-east-1') {
+                    
+        //             sh "aws dynamodb put-item --table-name TestLogs --item '{\"LogId\": {\"S\": \"${env.BUILD_TIMESTAMP} - Test Successful!\"}}'"
+                    
+        //         }
+        //     }
+        // }
+
         stage('DynamoDB Item Insertion') {
-            steps {
-                withAWS(credentials: 'aws-key', region: 'us-east-1') {
-                    
-                    sh "aws dynamodb put-item --table-name TestLogs --item '{\"LogId\": {\"S\": \"${env.BUILD_TIMESTAMP} - Test Successful!\"}}'"
-                    
-                }
-            }
-        }
+    steps {
+        sh """
+            aws dynamodb put-item \
+                --table-name TestLogs \
+                --item '{\"LogId\": {\"S\": \"${env.BUILD_TIMESTAMP} - Test Successful!\"}}' \
+                --region us-east-1
+        """
+    }
+}
         
     
         stage('PUSH-To-DOCKERHUB') {
