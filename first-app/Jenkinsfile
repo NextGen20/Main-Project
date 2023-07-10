@@ -29,7 +29,7 @@ pipeline {
         }
         stage('AWS S3 Upload') {
             steps {
-                withAWS(credentials: 'aws-key', region: 'us-east-1') {
+                withAWS(credentials: 'aws-key', region: 'us-west-2') {
                     s3Upload(bucket: 'jenkins-sqlabs-amitb', path: 'project1/', includePathPattern: '**/test.log'
                     , workingDir: '/home/ubuntu/workspace/test-docker-2/first-app/test_app')
                 
