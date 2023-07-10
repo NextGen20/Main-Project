@@ -59,7 +59,7 @@ pipeline {
             aws dynamodb put-item \
                 --table-name TestLogs \
                 --item '{\"LogId\": {\"S\": \"${env.BUILD_TIMESTAMP} - Test Successful!\"}}' \
-                --region us-east-1
+                --region us-west-2
         """
     }
 }
