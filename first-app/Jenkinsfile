@@ -27,15 +27,22 @@ pipeline {
                 }
             }
         }
-        stage('AWS S3 Upload') {
-            steps {
-                withAWS(credentials: 'aws-key', region: 'us-west-2') {
-                    s3Upload(bucket: 'jenkins-sqlabs-amitb', path: 'project1/', includePathPattern: '**/test.log'
-                    , workingDir: '/home/ubuntu/workspace/test-docker-2/first-app/test_app')
+        // // stage('AWS S3 Upload') {
+        // //     steps {
+        // //         withAWS(credentials: 'aws-key', region: 'us-west-2') {
+        // //             s3Upload(bucket: 'jenkins-sqlabs-amitb', path: 'project1/', includePathPattern: '**/test.log'
+        // //             , workingDir: '/home/ubuntu/workspace/test-docker-2/first-app/test_app')
                 
-                }
-            }
-        }
+        // //         }
+        // //     }
+        // }
+        stage('AWS S3 Upload') {
+    steps {
+        sh '''
+            aws s3 cp /home/ubuntu/workspace/fianl-project-pipe/first-app/test_app/test.log s3://jenkins-sqlabs-amitb/project1/ --region us-east-1
+        '''
+    }
+}
         stage('DynamoDB Item Insertion') {
             steps {
                 withAWS(credentials: 'aws-key', region: 'us-east-1') {
