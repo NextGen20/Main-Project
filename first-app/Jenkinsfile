@@ -68,7 +68,7 @@ pipeline {
         stage('PUSH-To-DOCKERHUB') {
             steps {
                 sh 'sudo docker login -u porto23 -p Amit29789'
-                sh "sudo docker push porto23/flaskproject:flask_app-${env.VERSION}"
+                sh "sudo docker push porto23/flaskproject:flask_app-latest"
             }
         }
     }
