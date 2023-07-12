@@ -1,0 +1,17 @@
+pipeline {
+    agent { 
+        node { 
+            label 'slave'
+        } 
+    }
+
+    stages {
+        stage('Deploy to Kubernetes') {
+            steps {
+                
+                sh 'kubectl apply -f flask-deployment.yaml'
+                sh 'kubectl apply -f flask-service.yaml'
+            }
+        }
+    }
+}
