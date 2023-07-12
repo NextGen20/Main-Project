@@ -5,6 +5,7 @@ pipeline {
         } 
     }
 
+    stages {
         stage('Deploy to Kubernetes') {
             steps {
                 sh 'kubectl apply -f eks-flask-deployment/flask-deployment.yaml'
@@ -12,4 +13,6 @@ pipeline {
             }
         }
     }
+}
+
 
