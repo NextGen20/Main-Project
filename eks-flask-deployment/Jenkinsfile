@@ -5,18 +5,11 @@ pipeline {
         } 
     }
 
-    stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-
         stage('Deploy to Kubernetes') {
             steps {
-                sh 'kubectl apply -f flask-deployment.yaml'
-                sh 'kubectl apply -f flask-service.yaml'
+                sh 'kubectl apply -f eks-flask-deployment/flask-deployment.yaml'
+                sh 'kubectl apply -f eks-flask-deployment/flask-service.yaml'
             }
         }
     }
-}
+
