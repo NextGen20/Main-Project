@@ -5,10 +5,10 @@ from flask import Flask, request, redirect, session, url_for
 from flask.templating import render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, migrate
-from prometheus_flask_exporter import PrometheusMetrics
+# from prometheus_flask_exporter import PrometheusMetrics
 
 app = Flask(__name__)
-metrics = PrometheusMetrics(app)
+# metrics = PrometheusMetrics(app)
 app.secret_key = 'amit'
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///my_site.db'
